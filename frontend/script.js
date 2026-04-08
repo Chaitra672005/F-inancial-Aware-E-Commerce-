@@ -1,6 +1,6 @@
-const API = "https://your-backend-url.onrender.com";
+const API = "https://f-inancial-aware-e-commerce.onrender.com";
 
-// load products
+// Load products
 async function loadProducts() {
   let res = await fetch(API + "/products");
   let data = await res.json();
@@ -11,7 +11,7 @@ async function loadProducts() {
 
 loadProducts();
 
-// checkout
+// Checkout
 async function checkout() {
   let amount = document.getElementById("amount").value;
 
@@ -22,7 +22,9 @@ async function checkout() {
   });
 
   let data = await res.json();
-  alert("Fraud Status: " + data.fraud_flag);
+
+  document.getElementById("result").innerText =
+    `Risk: ${data.risk_level} | Score: ${data.risk_score}`;
 }
 
 // EMI
@@ -34,5 +36,6 @@ async function calculateEMI() {
   let res = await fetch(`${API}/emi?amount=${amount}&rate=${rate}&months=${months}`);
   let data = await res.json();
 
-  alert("EMI: ₹" + data.emi);
+  document.getElementById("emi_result").innerText =
+    `EMI: ₹${data.emi}`;
 }
